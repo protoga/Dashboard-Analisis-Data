@@ -7,10 +7,6 @@ Original file is located at
     https://colab.research.google.com/drive/1qyJaj2ENO0ZjeT_vZh2spCHR4PFwt0zF
 """
 
-pip install streamlit pandas matplotlib seaborn
-
-pip install streamlit --upgrade
-
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
