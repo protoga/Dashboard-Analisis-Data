@@ -25,7 +25,7 @@ state_ES = e_commerce.loc[e_commerce["seller_state"] == "ES"]
 state_CE = e_commerce.loc[e_commerce["seller_state"] == "CE"]
 
 def create_max_min_state_ES(sd):
-    max_min_state_ES = sd.groupby(state_ES["seller_city"]).agg({"seller_id": "count"}).rename(columns={"seller_id": "Total Sales"}).sort_values(by="Total Sales", ascending=False).reset_index().rename(columns={"seller_city": "Kota"})
+    max_min_state_ES = sd.groupby(state_ES["seller_city"]).agg({"seller_id": "count"}).rename(columns={"seller_id": "Total Sales"}).sort_values(by="Total Sales", ascending=False).reset_index().rename(columns={"seller_city": "Kota"}, fig_es=plt.gcf())
     return max_min_state_ES
 
 def create_dist_state_CE(sd):
