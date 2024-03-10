@@ -26,24 +26,10 @@ state_CE = e_commerce.loc[e_commerce["seller_state"] == "CE"]
 
 def create_max_min_state_ES(sd):
     max_min_state_ES = sd.groupby(state_ES["seller_city"]).agg({"seller_id": "count"}).rename(columns={"seller_id": "Total Sales"}).sort_values(by="Total Sales", ascending=False).reset_index().rename(columns={"seller_city": "Kota"})
-    plt.figure(figsize=(10, 3))
-    sns.barplot(x='Total Sales', y='Kota', data=combine, palette="Blues_r")
-    plt.xlabel=('Total Sales')
-    plt.ylabel=('Kota')
-    plt.title('Total Sales berdasarkan Kota')
-
-    for index, value in enumerate(combine['Total Sales']):
-      plt.text(value, index, str(value))
-    plt.show()
-
     return max_min_state_ES
 
 def create_dist_state_CE(sd):
     dist_state_CE = e_commerce.groupby(state_CE["seller_city"]).agg({"seller_id": "count"}).rename(columns={"seller_id": "Total Sales"}).sort_values(by="Total Sales", ascending=False).reset_index().rename(columns={"seller_city": "Kota"})
-    #Buat diagram lingkaran
-    plt.pie(percentages, labels=total_sales_CE.index, autopct='%1.1f%%')
-    plt.title("Total Sales di setiap Kota pada negara CE")
-    plt.show()
     return dist_state_CE
 
 #Streamlit App
@@ -59,7 +45,17 @@ top = max_min_state_ES.head(5)
 bottom = max_min_state_ES.tail(5)
 
 combine = pd.concat([top, bottom])
+plt.figure(figsize=(10, 3))
+    sns.barplot(x='Total Sales', y='Kota', data=combine, palette="Blues_r")
+    plt.xlabel=('Total Sales')
+    plt.ylabel=('Kota')
+    plt.title('Total Sales berdasarkan Kota')
 
+for index, value in enumerate(combine['Total Sales']):
+    plt.text(value, index, str(value))
+plt.show()
+
+   
 with st.expander("See Explanation"):
   st.write(
       """Dapat di simpulkan bahwa kota Cachoeiro de Itapemirim, Vila Velha,  dan Vitoria sebagai kota dengan sales tertinggi, dengan demikian di harapkan stakeholder dapat melanjutkan strategi marketing lainnya agar dapat meningkatkan sales di 3 kota tersebut sehingga dapat meningkatkan laba pada perusahaan. Kemudian, kota Cariacica/Es, Colatina, Domingos Martins, Muqui, dan Viana merupakan kota dengan sales terendah, dengan demikian di harapkan stakeholder dapat menimbangkan untuk melanjutkan bisnis nya di kota-kota tersebut. Adapun kota yang berada di ambang tengah yaitu kota Serra dan Cariacica, dengan demikian di harapkan stakeholder dapat menimbangkan bisnis nya pada 2 kota tersebut."""
@@ -72,6 +68,11 @@ total_sales_CE = state_CE.groupby("seller_city")["seller_id"].count()
 
 #Hitung persentase sales untuk setiap kota
 percentages = total_sales_CE / total_sales_CE.sum()
+
+#Buat diagram lingkaran
+plt.pie(percentages, labels=total_sales_CE.index, autopct='%1.1f%%')
+plt.title("Total Sales di setiap Kota pada negara CE")
+plt.show()
 
 with st.expander("See Explanation"):
   st.write(
