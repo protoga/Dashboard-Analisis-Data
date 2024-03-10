@@ -26,12 +26,26 @@ state_CE = e_commerce.loc[e_commerce["seller_state"] == "CE"]
 
 def create_max_min_state_ES(sd):
     max_min_state_ES = sd.groupby(state_ES["seller_city"]).agg({"seller_id": "count"}).rename(columns={"seller_id": "Total Sales"}).sort_values(by="Total Sales", ascending=False).reset_index().rename(columns={"seller_city": "Kota"})
+    fig = plt.figure(figsize=(10, 3))
+    sns.barplot(x='Total Sales', y='Kota', data=max_min_state_ES, palette="Blues_r")
+    plt.xlabel=('Total Sales')
+    plt.ylabel=('Kota')
+    plt.title('Total Sales berdasarkan Kota')    
+    for index, value in enumerate(combine['Total Sales']):
+      plt.text(value, index, str(value))    
     plt.show()
     fig_es = plt.gcf()
     return max_min_state_ES, fig_es
 
 def create_dist_state_CE(sd):
     dist_state_CE = e_commerce.groupby(state_CE["seller_city"]).agg({"seller_id": "count"}).rename(columns={"seller_id": "Total Sales"}).sort_values(by="Total Sales", ascending=False).reset_index().rename(columns={"seller_city": "Kota"})
+    #Hitung total sales untuk setiap kota
+    total_sales_CE = dist_state_CE["Total Sales"]
+    #Hitung persentase sales untuk setiap kota
+    percentages = total_sales_CE / total_sales_CE.sum()
+    #Buat diagram lingkaran
+    fig = plt.pie(percentages, labels=total_sales_CE.index, autopct='%1.1f%%')
+    plt.title("Total Sales di setiap Kota pada negara CE")
     plt.show()
     fig_ce = plt.gcf()
     return dist_state_CE, fig_ce
@@ -50,16 +64,6 @@ bottom = max_min_state_ES.tail(5)
 
 combine = pd.concat([top, bottom])
 
-plt.figure(figsize=(10, 3))
-sns.barplot(x='Total Sales', y='Kota', data=combine, palette="Blues_r")
-plt.xlabel=('Total Sales')
-plt.ylabel=('Kota')
-plt.title('Total Sales berdasarkan Kota')
-
-for index, value in enumerate(combine['Total Sales']):
-  plt.text(value, index, str(value))
-fig_es = create_max_min_state_ES(e_commerce)
-st.pyplot(fig_es)
 
 with st.expander("See Explanation"):
   st.write(
@@ -68,16 +72,7 @@ with st.expander("See Explanation"):
 
 st.subheader('Bagaimana distribusi sales pada kota-kota yang berada pada negara MS?')
 
-#Hitung total sales untuk setiap kota
-total_sales_CE = state_CE.groupby("seller_city")["seller_id"].count()
-
-#Hitung persentase sales untuk setiap kota
-percentages = total_sales_CE / total_sales_CE.sum()
-
-#Buat diagram lingkaran
-plt.pie(percentages, labels=total_sales_CE.index, autopct='%1.1f%%')
-plt.title("Total Sales di setiap Kota pada negara CE")
-fig_ce = create_dist_state_CE(e_commerce)
+st.pyplot(fig_es)
 st.pyplot(fig_ce)
 
 with st.expander("See Explanation"):
