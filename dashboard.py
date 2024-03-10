@@ -26,17 +26,19 @@ state_CE = e_commerce.loc[e_commerce["seller_state"] == "CE"]
 
 def create_max_min_state_ES(sd):
     max_min_state_ES = sd.groupby(state_ES["seller_city"]).agg({"seller_id": "count"}).rename(columns={"seller_id": "Total Sales"}).sort_values(by="Total Sales", ascending=False).reset_index().rename(columns={"seller_city": "Kota"})
-    fig = plt.figure(figsize=(10, 3))
-    sns.barplot(x='Total Sales', y='Kota', data=max_min_state_ES, palette="Blues_r")
-    plt.xlabel=('Total Sales')
-    plt.ylabel=('Kota')
-    plt.title('Total Sales berdasarkan Kota')
-
+    
     top = max_min_state_ES.head(5)
     bottom = max_min_state_ES.tail(5)
 
     combine = pd.concat([top, bottom])
 
+    fig = plt.figure(figsize=(10, 3))
+    sns.barplot(x='Total Sales', y='Kota', data=combine, palette="Blues_r")
+    plt.xlabel=('Total Sales')
+    plt.ylabel=('Kota')
+    plt.title('Total Sales berdasarkan Kota')
+
+    
     for index, value in enumerate(combine['Total Sales']):
       plt.text(value, index, str(value))    
     plt.show()
@@ -65,6 +67,9 @@ dist_state_CE, fig_ce = create_dist_state_CE(e_commerce)
 
 st.subheader('Bagaimana demografi sales tertinggi dan terendah pada kota-kota di state ES?')
 
+#Menampilkan plot state ES
+st.pyplot(fig_es)
+
 with st.expander("See Explanation"):
   st.write(
       """Dapat di simpulkan bahwa kota Cachoeiro de Itapemirim, Vila Velha,  dan Vitoria sebagai kota dengan sales tertinggi, dengan demikian di harapkan stakeholder dapat melanjutkan strategi marketing lainnya agar dapat meningkatkan sales di 3 kota tersebut sehingga dapat meningkatkan laba pada perusahaan. Kemudian, kota Cariacica/Es, Colatina, Domingos Martins, Muqui, dan Viana merupakan kota dengan sales terendah, dengan demikian di harapkan stakeholder dapat menimbangkan untuk melanjutkan bisnis nya di kota-kota tersebut. Adapun kota yang berada di ambang tengah yaitu kota Serra dan Cariacica, dengan demikian di harapkan stakeholder dapat menimbangkan bisnis nya pada 2 kota tersebut."""
@@ -72,8 +77,6 @@ with st.expander("See Explanation"):
 
 st.subheader('Bagaimana distribusi sales pada kota-kota yang berada pada negara MS?')
 
-#Menampilkan plot state ES
-st.pyplot(fig_es)
 #Menampilkan plot state CE
 st.pyplot(fig_ce)
 
