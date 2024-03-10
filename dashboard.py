@@ -46,10 +46,10 @@ bottom = max_min_state_ES.tail(5)
 
 combine = pd.concat([top, bottom])
 plt.figure(figsize=(10, 3))
-    sns.barplot(x='Total Sales', y='Kota', data=combine, palette="Blues_r")
-    plt.xlabel=('Total Sales')
-    plt.ylabel=('Kota')
-    plt.title('Total Sales berdasarkan Kota')
+sns.barplot(x='Total Sales', y='Kota', data=combine, palette="Blues_r")
+plt.xlabel=('Total Sales')
+plt.ylabel=('Kota')
+plt.title('Total Sales berdasarkan Kota')
 
 for index, value in enumerate(combine['Total Sales']):
     plt.text(value, index, str(value))
