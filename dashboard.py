@@ -54,8 +54,8 @@ def create_dist_state_CE(sd):
 st.header('E-Commerce Public Dashboard: Sellers_Dataset')
 
 #Create Dataframe
-max_min_state_ES = create_max_min_state_ES(e_commerce)
-dist_state_CE = create_dist_state_CE(e_commerce)
+max_min_state_ES, fig_es = create_max_min_state_ES(e_commerce)
+dist_state_CE, fig_ce = create_dist_state_CE(e_commerce)
 
 st.subheader('Bagaimana demografi sales tertinggi dan terendah pada kota-kota di state ES?')
 
@@ -72,7 +72,9 @@ with st.expander("See Explanation"):
 
 st.subheader('Bagaimana distribusi sales pada kota-kota yang berada pada negara MS?')
 
+#Menampilkan plot state ES
 st.pyplot(fig_es)
+#Menampilkan plot state CE
 st.pyplot(fig_ce)
 
 with st.expander("See Explanation"):
