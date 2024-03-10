@@ -70,9 +70,9 @@ total_sales_CE = state_CE.groupby("seller_city")["seller_id"].count()
 percentages = total_sales_CE / total_sales_CE.sum()
 
 #Buat diagram lingkaran
-plt.pie(percentages, labels=total_sales_CE.index, autopct='%1.1f%%')
+bulat = plt.pie(percentages, labels=total_sales_CE.index, autopct='%1.1f%%')
 plt.title("Total Sales di setiap Kota pada negara CE")
-st.pyplot()
+st.pyplot(bulat)
 
 with st.expander("See Explanation"):
   st.write(
