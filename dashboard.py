@@ -41,19 +41,20 @@ dist_state_CE = create_dist_state_CE(e_commerce)
 
 st.subheader('Bagaimana demografi sales tertinggi dan terendah pada kota-kota di state ES?')
 
-top = max_min_state_ES.head(5)
-bottom = max_min_state_ES.tail(5)
+def barchart():
+    top = max_min_state_ES.head(5)
+    bottom = max_min_state_ES.tail(5)
 
-combine = pd.concat([top, bottom])
-plt.figure(figsize=(10, 3))
-sns.barplot(x='Total Sales', y='Kota', data=combine, palette="Blues_r")
-plt.xlabel=('Total Sales')
-plt.ylabel=('Kota')
-plt.title('Total Sales berdasarkan Kota')
+    combine = pd.concat([top, bottom])
+    plt.figure(figsize=(10, 3))
+    sns.barplot(x='Total Sales', y='Kota', data=combine, palette="Blues_r")
+    plt.xlabel=('Total Sales')
+    plt.ylabel=('Kota')
+    plt.title('Total Sales berdasarkan Kota')
 
-for index, value in enumerate(combine['Total Sales']):
-    plt.text(value, index, str(value))
-st.pyplot(fig)
+    for index, value in enumerate(combine['Total Sales']):
+        plt.text(value, index, str(value))
+    return barchart
 
    
 with st.expander("See Explanation"):
@@ -72,7 +73,7 @@ percentages = total_sales_CE / total_sales_CE.sum()
 #Buat diagram lingkaran
 bulat = plt.pie(percentages, labels=total_sales_CE.index, autopct='%1.1f%%')
 plt.title("Total Sales di setiap Kota pada negara CE")
-st.pyplot(fig)
+st.pyplot()
 
 with st.expander("See Explanation"):
   st.write(
