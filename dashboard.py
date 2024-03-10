@@ -30,7 +30,13 @@ def create_max_min_state_ES(sd):
     sns.barplot(x='Total Sales', y='Kota', data=max_min_state_ES, palette="Blues_r")
     plt.xlabel=('Total Sales')
     plt.ylabel=('Kota')
-    plt.title('Total Sales berdasarkan Kota')    
+    plt.title('Total Sales berdasarkan Kota')
+
+    top = max_min_state_ES.head(5)
+    bottom = max_min_state_ES.tail(5)
+
+    combine = pd.concat([top, bottom])
+
     for index, value in enumerate(combine['Total Sales']):
       plt.text(value, index, str(value))    
     plt.show()
@@ -58,12 +64,6 @@ max_min_state_ES, fig_es = create_max_min_state_ES(e_commerce)
 dist_state_CE, fig_ce = create_dist_state_CE(e_commerce)
 
 st.subheader('Bagaimana demografi sales tertinggi dan terendah pada kota-kota di state ES?')
-
-top = max_min_state_ES.head(5)
-bottom = max_min_state_ES.tail(5)
-
-combine = pd.concat([top, bottom])
-
 
 with st.expander("See Explanation"):
   st.write(
