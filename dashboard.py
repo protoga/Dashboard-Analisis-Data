@@ -45,16 +45,17 @@ top = max_min_state_ES.head(5)
 bottom = max_min_state_ES.tail(5)
 
 combine = pd.concat([top, bottom])
-fig, ax = plt.subpoints()
-#plt.figure(figsize=(10, 3))
+fig, ax = plt.subplots(figsize=(10, 3))
 sns.barplot(x='Total Sales', y='Kota', data=combine, palette="Blues_r")
+plt.legend()
 plt.xlabel=('Total Sales')
 plt.ylabel=('Kota')
 plt.title('Total Sales berdasarkan Kota')
 
 for index, value in enumerate(combine['Total Sales']):
     plt.text(value, index, str(value))
-st.pyplot(fig)
+fig_es = create_max_min_state_ES(e_commerce)
+st.pyplot(fig_es)
 
    
 with st.expander("See Explanation"):
@@ -74,7 +75,8 @@ percentages = total_sales_CE / total_sales_CE.sum()
 fig, ax = plt.subpoints()
 plt.pie(percentages, labels=total_sales_CE.index, autopct='%1.1f%%')
 plt.title("Total Sales di setiap Kota pada negara CE")
-st.pyplot(fig)
+fig_ce = create_max_min_state_CE(e_commerce)
+st.pyplot(fig_ce)
 
 with st.expander("See Explanation"):
   st.write(
