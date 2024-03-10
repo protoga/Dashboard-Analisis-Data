@@ -41,20 +41,19 @@ dist_state_CE = create_dist_state_CE(e_commerce)
 
 st.subheader('Bagaimana demografi sales tertinggi dan terendah pada kota-kota di state ES?')
 
-def barchart():
-    top = max_min_state_ES.head(5)
-    bottom = max_min_state_ES.tail(5)
+top = max_min_state_ES.head(5)
+bottom = max_min_state_ES.tail(5)
 
-    combine = pd.concat([top, bottom])
-    plt.figure(figsize=(10, 3))
-    sns.barplot(x='Total Sales', y='Kota', data=combine, palette="Blues_r")
-    plt.xlabel=('Total Sales')
-    plt.ylabel=('Kota')
-    plt.title('Total Sales berdasarkan Kota')
+combine = pd.concat([top, bottom])
+plt.figure(figsize=(10, 3))
+sns.barplot(x='Total Sales', y='Kota', data=combine, palette="Blues_r")
+plt.xlabel=('Total Sales')
+plt.ylabel=('Kota')
+plt.title('Total Sales berdasarkan Kota')
 
-    for index, value in enumerate(combine['Total Sales']):
-        plt.text(value, index, str(value))
-    return barchart
+for index, value in enumerate(combine['Total Sales']):
+    plt.text(value, index, str(value))
+st.pyplot()
 
    
 with st.expander("See Explanation"):
