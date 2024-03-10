@@ -53,7 +53,7 @@ plt.title('Total Sales berdasarkan Kota')
 
 for index, value in enumerate(combine['Total Sales']):
     plt.text(value, index, str(value))
-plt.show()
+st.pyplot()
 
    
 with st.expander("See Explanation"):
@@ -72,7 +72,7 @@ percentages = total_sales_CE / total_sales_CE.sum()
 #Buat diagram lingkaran
 plt.pie(percentages, labels=total_sales_CE.index, autopct='%1.1f%%')
 plt.title("Total Sales di setiap Kota pada negara CE")
-plt.show()
+st.pyplot()
 
 with st.expander("See Explanation"):
   st.write(
