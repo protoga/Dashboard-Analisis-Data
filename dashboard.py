@@ -68,7 +68,7 @@ dist_state_CE, fig_ce = create_dist_state_CE(e_commerce)
 st.subheader('Bagaimana demografi sales tertinggi dan terendah pada kota-kota di state ES?')
 
 #Menampilkan plot state ES
-st.pyplot(fig_es)
+st.pyplot(max_min_state_ES, fig_es)
 
 with st.expander("See Explanation"):
   st.write(
@@ -78,7 +78,7 @@ with st.expander("See Explanation"):
 st.subheader('Bagaimana distribusi sales pada kota-kota yang berada pada negara MS?')
 
 #Menampilkan plot state CE
-st.pyplot(fig_ce)
+st.pyplot(dist_state_CE, fig_ce)
 
 with st.expander("See Explanation"):
   st.write(
