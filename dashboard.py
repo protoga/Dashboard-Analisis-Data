@@ -26,11 +26,15 @@ state_CE = e_commerce.loc[e_commerce["seller_state"] == "CE"]
 
 def create_max_min_state_ES(sd):
     max_min_state_ES = sd.groupby(state_ES["seller_city"]).agg({"seller_id": "count"}).rename(columns={"seller_id": "Total Sales"}).sort_values(by="Total Sales", ascending=False).reset_index().rename(columns={"seller_city": "Kota"})
-    return max_min_state_ES
+    plt.show()
+    fig_es = plt.gcf()
+    return max_min_state_ES, fig_es
 
 def create_dist_state_CE(sd):
     dist_state_CE = e_commerce.groupby(state_CE["seller_city"]).agg({"seller_id": "count"}).rename(columns={"seller_id": "Total Sales"}).sort_values(by="Total Sales", ascending=False).reset_index().rename(columns={"seller_city": "Kota"})
-    return dist_state_CE
+    plt.show()
+    fig_ce = plt.gcf()
+    return dist_state_CE, fig_ce
 
 #Streamlit App
 st.header('E-Commerce Public Dashboard: Sellers_Dataset')
@@ -54,7 +58,8 @@ plt.title('Total Sales berdasarkan Kota')
 
 for index, value in enumerate(combine['Total Sales']):
   plt.text(value, index, str(value))
-plt.show()
+fig_es = create_max_min_state_ES(e_commerce)
+st.pyplot(fig_es)
 
 with st.expander("See Explanation"):
   st.write(
@@ -72,7 +77,8 @@ percentages = total_sales_CE / total_sales_CE.sum()
 #Buat diagram lingkaran
 plt.pie(percentages, labels=total_sales_CE.index, autopct='%1.1f%%')
 plt.title("Total Sales di setiap Kota pada negara CE")
-plt.show()
+fig_ce = create_dist_state_CE(e_commerce)
+st.pyplot(fig_ce)
 
 with st.expander("See Explanation"):
   st.write(
